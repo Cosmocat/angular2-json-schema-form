@@ -8337,6 +8337,7 @@ class JsonSchemaFormComponent {
             widgets: null, form: null, model: null, JSONSchema: null, UISchema: null,
             formData: null, loadExternalAssets: null, debug: null,
         };
+        this.defaultLayoutOptions = {};
         // Outputs
         // tslint:disable no-output-on-prefix
         this.onChanges = new EventEmitter();
