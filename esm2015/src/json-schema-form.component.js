@@ -227,6 +227,7 @@ export class JsonSchemaFormComponent {
             this.initializeSchema(); // Update schema, schemaRefLibrary,
             // schemaRecursiveRefMap, & dataRecursiveRefMap
             this.initializeLayout(); // Update layout, layoutRefLibrary,
+            this.initializeLayoutDefaults();
             this.initializeData(); // Update formValues
             this.activateForm(); // Update dataMap, templateRefLibrary,
             // formGroupTemplate, formGroup
@@ -550,6 +551,9 @@ export class JsonSchemaFormComponent {
             });
         }
     }
+    initializeLayoutDefaults() {
+        this.jsf.defaultLayoutOptions = this.defaultLayoutOptions;
+    }
     /**
        * 'activateForm' function
        *
@@ -670,6 +674,7 @@ JsonSchemaFormComponent.ctorParameters = () => [
 JsonSchemaFormComponent.propDecorators = {
     "schema": [{ type: Input },],
     "layout": [{ type: Input },],
+    "defaultLayoutOptions": [{ type: Input },],
     "data": [{ type: Input },],
     "options": [{ type: Input },],
     "framework": [{ type: Input },],

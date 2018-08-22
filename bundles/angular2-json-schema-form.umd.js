@@ -5686,7 +5686,7 @@
                     if (newNode.options.addable !== false &&
                         newNode.options.minItems < newNode.options.maxItems &&
                         (newNode.items[newNode.items.length - 1] || {}).type !== '$ref') {
-                        var buttonText = 'Add another to ';
+                        var buttonText = 'Add another to';
                         if (newNode.options.title) {
                             if (/^add\b/i.test(newNode.options.title)) {
                                 buttonText = newNode.options.title;
@@ -6727,6 +6727,7 @@
             this.templateRefLibrary = {};
             this.hasRootReference = false;
             this.language = 'en-US';
+            this.defaultLayoutOptions = {};
             // Default global form options
             this.defaultFormOptions = {
                 addSubmit: 'auto',
@@ -9197,6 +9198,7 @@
                 this.initializeSchema(); // Update schema, schemaRefLibrary,
                 // schemaRecursiveRefMap, & dataRecursiveRefMap
                 this.initializeLayout(); // Update layout, layoutRefLibrary,
+                this.initializeLayoutDefaults();
                 this.initializeData(); // Update formValues
                 this.activateForm(); // Update dataMap, templateRefLibrary,
                 // formGroupTemplate, formGroup
@@ -9538,6 +9540,9 @@
                 });
             }
         };
+        JsonSchemaFormComponent.prototype.initializeLayoutDefaults = function () {
+            this.jsf.defaultLayoutOptions = this.defaultLayoutOptions;
+        };
         /**
            * 'activateForm' function
            *
@@ -9650,6 +9655,7 @@
     JsonSchemaFormComponent.propDecorators = {
         "schema": [{ type: core.Input },],
         "layout": [{ type: core.Input },],
+        "defaultLayoutOptions": [{ type: core.Input },],
         "data": [{ type: core.Input },],
         "options": [{ type: core.Input },],
         "framework": [{ type: core.Input },],
@@ -9917,6 +9923,8 @@
                     // 'div', 'flex', 'tab', 'conditional', 'actions'
                     this.containerType = 'div';
             }
+            // apply defaults to section options
+            this.options = Object.assign(this.jsf.defaultLayoutOptions, this.options);
         };
         FlexLayoutSectionComponent.prototype.toggleExpanded = function () {
             if (this.options.expandable) {

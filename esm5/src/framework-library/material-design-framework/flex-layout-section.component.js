@@ -40,6 +40,8 @@ var FlexLayoutSectionComponent = /** @class */ (function () {
                 // 'div', 'flex', 'tab', 'conditional', 'actions'
                 this.containerType = 'div';
         }
+        // apply defaults to section options
+        this.options = Object.assign(this.jsf.defaultLayoutOptions, this.options);
     };
     FlexLayoutSectionComponent.prototype.toggleExpanded = function () {
         if (this.options.expandable) {

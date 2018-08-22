@@ -5343,7 +5343,7 @@ function buildLayout(jsf, widgetLibrary) {
                 if (newNode.options.addable !== false &&
                     newNode.options.minItems < newNode.options.maxItems &&
                     (newNode.items[newNode.items.length - 1] || {}).type !== '$ref') {
-                    var buttonText = 'Add another to ';
+                    var buttonText = 'Add another to';
                     if (newNode.options.title) {
                         if (/^add\b/i.test(newNode.options.title)) {
                             buttonText = newNode.options.title;
@@ -6332,6 +6332,7 @@ var JsonSchemaFormService = /** @class */ (function () {
         this.templateRefLibrary = {};
         this.hasRootReference = false;
         this.language = 'en-US';
+        this.defaultLayoutOptions = {};
         // Default global form options
         this.defaultFormOptions = {
             addSubmit: 'auto',
@@ -8670,6 +8671,7 @@ var JsonSchemaFormComponent = /** @class */ (function () {
             this.initializeSchema(); // Update schema, schemaRefLibrary,
             // schemaRecursiveRefMap, & dataRecursiveRefMap
             this.initializeLayout(); // Update layout, layoutRefLibrary,
+            this.initializeLayoutDefaults();
             this.initializeData(); // Update formValues
             this.activateForm(); // Update dataMap, templateRefLibrary,
             // formGroupTemplate, formGroup
@@ -9005,6 +9007,9 @@ var JsonSchemaFormComponent = /** @class */ (function () {
             });
         }
     };
+    JsonSchemaFormComponent.prototype.initializeLayoutDefaults = function () {
+        this.jsf.defaultLayoutOptions = this.defaultLayoutOptions;
+    };
     /**
        * 'activateForm' function
        *
@@ -9115,6 +9120,7 @@ JsonSchemaFormComponent.ctorParameters = function () { return [
 JsonSchemaFormComponent.propDecorators = {
     "schema": [{ type: Input },],
     "layout": [{ type: Input },],
+    "defaultLayoutOptions": [{ type: Input },],
     "data": [{ type: Input },],
     "options": [{ type: Input },],
     "framework": [{ type: Input },],
@@ -9386,6 +9392,8 @@ var FlexLayoutSectionComponent = /** @class */ (function () {
                 // 'div', 'flex', 'tab', 'conditional', 'actions'
                 this.containerType = 'div';
         }
+        // apply defaults to section options
+        this.options = Object.assign(this.jsf.defaultLayoutOptions, this.options);
     };
     FlexLayoutSectionComponent.prototype.toggleExpanded = function () {
         if (this.options.expandable) {

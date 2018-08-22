@@ -45,6 +45,7 @@ var JsonSchemaFormService = /** @class */ (function () {
         this.templateRefLibrary = {};
         this.hasRootReference = false;
         this.language = 'en-US';
+        this.defaultLayoutOptions = {};
         // Default global form options
         this.defaultFormOptions = {
             addSubmit: 'auto',

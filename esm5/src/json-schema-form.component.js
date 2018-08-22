@@ -242,6 +242,7 @@ var JsonSchemaFormComponent = /** @class */ (function () {
             this.initializeSchema(); // Update schema, schemaRefLibrary,
             // schemaRecursiveRefMap, & dataRecursiveRefMap
             this.initializeLayout(); // Update layout, layoutRefLibrary,
+            this.initializeLayoutDefaults();
             this.initializeData(); // Update formValues
             this.activateForm(); // Update dataMap, templateRefLibrary,
             // formGroupTemplate, formGroup
@@ -577,6 +578,9 @@ var JsonSchemaFormComponent = /** @class */ (function () {
             });
         }
     };
+    JsonSchemaFormComponent.prototype.initializeLayoutDefaults = function () {
+        this.jsf.defaultLayoutOptions = this.defaultLayoutOptions;
+    };
     /**
        * 'activateForm' function
        *
@@ -688,6 +692,7 @@ JsonSchemaFormComponent.ctorParameters = function () { return [
 JsonSchemaFormComponent.propDecorators = {
     "schema": [{ type: Input },],
     "layout": [{ type: Input },],
+    "defaultLayoutOptions": [{ type: Input },],
     "data": [{ type: Input },],
     "options": [{ type: Input },],
     "framework": [{ type: Input },],
