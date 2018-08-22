@@ -99,7 +99,7 @@ export class JsonSchemaFormComponent implements ControlValueAccessor, OnChanges,
   // Recommended inputs
   @Input() schema: any; // The JSON Schema
   @Input() layout: any[]; // The form layout
-  @Input() defaultLayoutOptions: any; // default options for the form layout
+  @Input() defaultLayoutOptions: any = {}; // default options for the form layout
   @Input() data: any; // The form data
   @Input() options: any; // The global form options
   @Input() framework: any|string; // The framework to load
