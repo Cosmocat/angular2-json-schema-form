@@ -9900,6 +9900,7 @@
             configurable: true
         });
         FlexLayoutSectionComponent.prototype.ngOnInit = function () {
+            var _this = this;
             this.jsf.initializeControl(this);
             this.options = this.layoutNode.options || {};
             this.expanded = typeof this.options.expanded === 'boolean' ?
@@ -9925,7 +9926,9 @@
                     this.containerType = 'div';
             }
             // apply defaults to section options
-            this.options = Object.assign(this.jsf.defaultLayoutOptions, this.options);
+            Object.keys(this.jsf.defaultLayoutOptions).forEach(function (key) {
+                _this.options[key] = _this.jsf.defaultLayoutOptions[key];
+            });
         };
         FlexLayoutSectionComponent.prototype.toggleExpanded = function () {
             if (this.options.expandable) {
