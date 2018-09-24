@@ -9,10 +9,13 @@ export declare class MaterialFileComponent implements OnInit {
     controlDisabled: boolean;
     boundControl: boolean;
     options: any;
+    selectedFileName: string;
     layoutNode: any;
     layoutIndex: number[];
     dataIndex: number[];
     constructor(jsf: JsonSchemaFormService);
     ngOnInit(): void;
     updateValue(event: any): void;
+    onFileChanged(event: any): void;
+    getBase64(file: any): Promise<{}>;
 }

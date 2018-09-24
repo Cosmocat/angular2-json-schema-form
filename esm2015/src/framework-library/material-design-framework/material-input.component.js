@@ -65,7 +65,6 @@ MaterialInputComponent.decorators = [
         (blur)="options.showErrors = true">
       <span matSuffix *ngIf="options?.suffix || options?.fieldAddonRight"
         [innerHTML]="options?.suffix || options?.fieldAddonRight"></span>
-      
       <mat-autocomplete *ngIf="options?.typeahead?.source">
         <mat-option *ngFor="let word of options?.typeahead?.source"
           [value]="word">{{word}}</mat-option>

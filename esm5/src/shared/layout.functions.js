@@ -192,6 +192,7 @@ export function buildLayout(jsf, widgetLibrary) {
                 }
                 else if (!widgetLibrary.hasWidget(newNode.type)) {
                     var oldWidgetType = newNode.type;
+                    console.log(widgetLibrary);
                     newNode.type = getInputType(nodeSchema, newNode);
                     console.error("error: widget type \"" + oldWidgetType + "\" " +
                         ("not found in library. Replacing with \"" + newNode.type + "\"."));

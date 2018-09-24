@@ -14,13 +14,28 @@ var MaterialFileComponent = /** @class */ (function () {
     MaterialFileComponent.prototype.updateValue = function (event) {
         this.jsf.updateValue(this, event.target.value);
     };
+    MaterialFileComponent.prototype.onFileChanged = function (event) {
+        var _this = this;
+        var selectedFile = event.target.files[0];
+        this.selectedFileName = selectedFile.name;
+        this.getBase64(selectedFile).then(function (f) { return _this.jsf.updateValue(_this, f); });
+    };
+    MaterialFileComponent.prototype.getBase64 = function (file) {
+        return new Promise(function (resolve, reject) {
+            var reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = function () { return resolve(reader.result); };
+            reader.onerror = function (error) { return reject(error); };
+        });
+    };
     return MaterialFileComponent;
 }());
 export { MaterialFileComponent };
 MaterialFileComponent.decorators = [
     { type: Component, args: [{
                 selector: 'material-file-widget',
-                template: "",
+                template: "\n    <label for=\"file-upload\" class=\"custom-file-upload\">\n      <i class=\"fa fa-cloud-upload\"></i> Upload {{options?.title}}\n    </label>\n    <input type=\"file\" id=\"file-upload\" accept=\"image/jpg, image/gif, image/jpeg, image/png\" (change)=\"onFileChanged($event)\">\n    <span> {{ selectedFileName }}</span>\n  ",
+                styles: ["\n    input[type=\"file\"] {\n      display: none;\n    }\n    .custom-file-upload {\n        border: 1px solid #ccc;\n        display: inline-block;\n        padding: 6px 12px;\n        cursor: pointer;\n    }\n  "]
             },] },
 ];
 /** @nocollapse */

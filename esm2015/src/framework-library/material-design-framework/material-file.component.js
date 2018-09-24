@@ -14,11 +14,41 @@ export class MaterialFileComponent {
     updateValue(event) {
         this.jsf.updateValue(this, event.target.value);
     }
+    onFileChanged(event) {
+        const selectedFile = event.target.files[0];
+        this.selectedFileName = selectedFile.name;
+        this.getBase64(selectedFile).then(f => this.jsf.updateValue(this, f));
+    }
+    getBase64(file) {
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = () => resolve(reader.result);
+            reader.onerror = error => reject(error);
+        });
+    }
 }
 MaterialFileComponent.decorators = [
     { type: Component, args: [{
                 selector: 'material-file-widget',
-                template: ``,
+                template: `
+    <label for="file-upload" class="custom-file-upload">
+      <i class="fa fa-cloud-upload"></i> Upload {{options?.title}}
+    </label>
+    <input type="file" id="file-upload" accept="image/jpg, image/gif, image/jpeg, image/png" (change)="onFileChanged($event)">
+    <span> {{ selectedFileName }}</span>
+  `,
+                styles: [`
+    input[type="file"] {
+      display: none;
+    }
+    .custom-file-upload {
+        border: 1px solid #ccc;
+        display: inline-block;
+        padding: 6px 12px;
+        cursor: pointer;
+    }
+  `]
             },] },
 ];
 /** @nocollapse */

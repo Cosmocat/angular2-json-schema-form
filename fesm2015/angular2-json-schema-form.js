@@ -4749,6 +4749,7 @@ function buildLayout(jsf, widgetLibrary) {
                 }
                 else if (!widgetLibrary.hasWidget(newNode.type)) {
                     const oldWidgetType = newNode.type;
+                    console.log(widgetLibrary);
                     newNode.type = getInputType(nodeSchema, newNode);
                     console.error(`error: widget type "${oldWidgetType}" ` +
                         `not found in library. Replacing with "${newNode.type}".`);
@@ -10169,11 +10170,41 @@ class MaterialFileComponent {
     updateValue(event) {
         this.jsf.updateValue(this, event.target.value);
     }
+    onFileChanged(event) {
+        const selectedFile = event.target.files[0];
+        this.selectedFileName = selectedFile.name;
+        this.getBase64(selectedFile).then(f => this.jsf.updateValue(this, f));
+    }
+    getBase64(file) {
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = () => resolve(reader.result);
+            reader.onerror = error => reject(error);
+        });
+    }
 }
 MaterialFileComponent.decorators = [
     { type: Component, args: [{
                 selector: 'material-file-widget',
-                template: ``,
+                template: `
+    <label for="file-upload" class="custom-file-upload">
+      <i class="fa fa-cloud-upload"></i> Upload {{options?.title}}
+    </label>
+    <input type="file" id="file-upload" accept="image/jpg, image/gif, image/jpeg, image/png" (change)="onFileChanged($event)">
+    <span> {{ selectedFileName }}</span>
+  `,
+                styles: [`
+    input[type="file"] {
+      display: none;
+    }
+    .custom-file-upload {
+        border: 1px solid #ccc;
+        display: inline-block;
+        padding: 6px 12px;
+        cursor: pointer;
+    }
+  `]
             },] },
 ];
 /** @nocollapse */
@@ -10251,7 +10282,6 @@ MaterialInputComponent.decorators = [
         (blur)="options.showErrors = true">
       <span matSuffix *ngIf="options?.suffix || options?.fieldAddonRight"
         [innerHTML]="options?.suffix || options?.fieldAddonRight"></span>
-      
       <mat-autocomplete *ngIf="options?.typeahead?.source">
         <mat-option *ngFor="let word of options?.typeahead?.source"
           [value]="word">{{word}}</mat-option>
