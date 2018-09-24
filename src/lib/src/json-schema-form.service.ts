@@ -497,8 +497,8 @@ export class JsonSchemaFormService {
   }
 
   updateValue(ctx: any, value: any): void {
-
     // Set value of current control
+
     ctx.controlValue = value;
     if (ctx.boundControl) {
       ctx.formControl.setValue(value);

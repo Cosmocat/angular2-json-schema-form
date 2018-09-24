@@ -65,7 +65,7 @@
         }
       ]
     },
-    { "key": "birthday", "type": "datetime", "format": "YYYY-MM-DD HH:mm:ss", "mode": "day" },
+    { "key": "birthday", "type": "file" },
     { "key": "birthday1", "type": "datetime", "format": "MMM YYYY", "mode": "month"},
     { "key": "birthday2", "type": "datetime", "format": "HH:mm:ss", "mode": "time"},
     { "key": "iconcolor", "type": "color", "enum" : ["#080808", "#808080"] },

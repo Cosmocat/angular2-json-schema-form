@@ -51,7 +51,7 @@ export class DemoComponent implements OnInit {
     form: true,
     output: true
   };
-
+  defaultLayoutOptions = { fxLayoutGap: '50px' };
   formActive = false;
   jsonFormSchema: string;
   jsonFormValid = false;

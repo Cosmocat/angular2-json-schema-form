@@ -186,8 +186,8 @@ export class FlexLayoutSectionComponent implements OnInit {
 
     // apply defaults to section options
     Object.keys(this.jsf.defaultLayoutOptions).forEach(key => {
-      this.options[key] = this.jsf.defaultLayoutOptions[key]
-    })
+      this.options[key] = this.jsf.defaultLayoutOptions[key];
+    });
   }
 
   toggleExpanded() {
