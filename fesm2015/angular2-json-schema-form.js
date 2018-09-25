@@ -10164,6 +10164,7 @@ class MaterialFileComponent {
         this.boundControl = false;
     }
     ngOnInit() {
+        this.imageSrc = `assets/placeholder-600x400.png`;
         this.options = this.layoutNode.options || {};
         this.jsf.initializeControl(this);
     }
@@ -10179,7 +10180,10 @@ class MaterialFileComponent {
         return new Promise((resolve, reject) => {
             const reader = new FileReader();
             reader.readAsDataURL(file);
-            reader.onload = () => resolve(reader.result);
+            reader.onload = () => {
+                this.imageSrc = reader.result;
+                return resolve(reader.result);
+            };
             reader.onerror = error => reject(error);
         });
     }
@@ -10193,11 +10197,16 @@ MaterialFileComponent.decorators = [
     </label>
     <input type="file" id="file-upload" accept="image/jpg, image/gif, image/jpeg, image/png" (change)="onFileChanged($event)">
     <span> {{ selectedFileName }}</span>
+    <div>
+      <div>Preview: </div>
+      <img id="preview" [src]="imageSrc" alt="Image Preview" />
+    </div>
   `,
                 styles: [`
     input[type="file"] {
       display: none;
     }
+
     .custom-file-upload {
         border: 1px solid #ccc;
         display: inline-block;

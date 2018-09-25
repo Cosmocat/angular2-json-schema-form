@@ -10536,6 +10536,7 @@
             this.boundControl = false;
         }
         MaterialFileComponent.prototype.ngOnInit = function () {
+            this.imageSrc = "assets/placeholder-600x400.png";
             this.options = this.layoutNode.options || {};
             this.jsf.initializeControl(this);
         };
@@ -10549,10 +10550,14 @@
             this.getBase64(selectedFile).then(function (f) { return _this.jsf.updateValue(_this, f); });
         };
         MaterialFileComponent.prototype.getBase64 = function (file) {
+            var _this = this;
             return new Promise(function (resolve, reject) {
                 var reader = new FileReader();
                 reader.readAsDataURL(file);
-                reader.onload = function () { return resolve(reader.result); };
+                reader.onload = function () {
+                    _this.imageSrc = reader.result;
+                    return resolve(reader.result);
+                };
                 reader.onerror = function (error) { return reject(error); };
             });
         };
@@ -10561,8 +10566,8 @@
     MaterialFileComponent.decorators = [
         { type: core.Component, args: [{
                     selector: 'material-file-widget',
-                    template: "\n    <label for=\"file-upload\" class=\"custom-file-upload\">\n      <i class=\"fa fa-cloud-upload\"></i> Upload {{options?.title}}\n    </label>\n    <input type=\"file\" id=\"file-upload\" accept=\"image/jpg, image/gif, image/jpeg, image/png\" (change)=\"onFileChanged($event)\">\n    <span> {{ selectedFileName }}</span>\n  ",
-                    styles: ["\n    input[type=\"file\"] {\n      display: none;\n    }\n    .custom-file-upload {\n        border: 1px solid #ccc;\n        display: inline-block;\n        padding: 6px 12px;\n        cursor: pointer;\n    }\n  "]
+                    template: "\n    <label for=\"file-upload\" class=\"custom-file-upload\">\n      <i class=\"fa fa-cloud-upload\"></i> Upload {{options?.title}}\n    </label>\n    <input type=\"file\" id=\"file-upload\" accept=\"image/jpg, image/gif, image/jpeg, image/png\" (change)=\"onFileChanged($event)\">\n    <span> {{ selectedFileName }}</span>\n    <div>\n      <div>Preview: </div>\n      <img id=\"preview\" [src]=\"imageSrc\" alt=\"Image Preview\" />\n    </div>\n  ",
+                    styles: ["\n    input[type=\"file\"] {\n      display: none;\n    }\n\n    .custom-file-upload {\n        border: 1px solid #ccc;\n        display: inline-block;\n        padding: 6px 12px;\n        cursor: pointer;\n    }\n  "]
                 },] },
     ];
     /** @nocollapse */

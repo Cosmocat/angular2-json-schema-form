@@ -10,6 +10,7 @@ export declare class MaterialFileComponent implements OnInit {
     boundControl: boolean;
     options: any;
     selectedFileName: string;
+    imageSrc: any;
     layoutNode: any;
     layoutIndex: number[];
     dataIndex: number[];
