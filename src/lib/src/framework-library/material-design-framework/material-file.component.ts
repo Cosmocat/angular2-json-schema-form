@@ -49,9 +49,9 @@ export class MaterialFileComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.imageSrc = `assets/placeholder-600x400.png`;
     this.options = this.layoutNode.options || {};
     this.jsf.initializeControl(this);
+    this.imageSrc = this.controlValue || `assets/placeholder-600x400.png`;
   }
 
   updateValue(event) {
