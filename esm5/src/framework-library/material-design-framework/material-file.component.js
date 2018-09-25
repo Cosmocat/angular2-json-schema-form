@@ -8,9 +8,9 @@ var MaterialFileComponent = /** @class */ (function () {
         this.boundControl = false;
     }
     MaterialFileComponent.prototype.ngOnInit = function () {
-        this.imageSrc = "assets/placeholder-600x400.png";
         this.options = this.layoutNode.options || {};
         this.jsf.initializeControl(this);
+        this.imageSrc = this.controlValue || "assets/placeholder-600x400.png";
     };
     MaterialFileComponent.prototype.updateValue = function (event) {
         this.jsf.updateValue(this, event.target.value);
